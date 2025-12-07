@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝙉𝙀𝙊𝙓𝙐𝙎</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .scanlines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.03) 0px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
+        }
+
+        .vignette {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            padding: 80px 100px;
+        }
+
+        .title-wrapper {
+            position: relative;
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-size: 120px;
+            color: #ffffff;
+            letter-spacing: 24px;
+            text-shadow: 
+                0 0 10px #fff,
+                0 0 20px #fff,
+                0 0 30px #fff,
+                0 0 40px #ff0000,
+                0 0 70px #ff0000,
+                0 0 80px #ff0000,
+                0 0 100px #ff0000,
+                0 0 150px #ff0000;
+            animation: flicker 2s infinite alternate, glitchText 4s infinite, pulse 2s infinite;
+            position: relative;
+            font-weight: 900;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 
+                    0 0 10px #fff,
+                    0 0 20px #fff,
+                    0 0 30px #fff,
+                    0 0 40px #ff0000,
+                    0 0 70px #ff0000,
+                    0 0 80px #ff0000,
+                    0 0 100px #ff0000;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+
+        @keyframes glitchText {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .glitch:nth-child(2) {
+            color: #ff0000;
+            animation: glitch1 2.5s infinite;
+        }
+
+        .glitch:nth-child(3) {
+            color: #ffffff;
+            animation: glitch2 2.5s infinite;
+        }
+
+        @keyframes glitch1 {
+            0% { opacity: 0; transform: translate(0); }
+            5% { opacity: 1; transform: translate(-5px, 0); }
+            10% { opacity: 0; transform: translate(5px, 0); }
+            100% { opacity: 0; transform: translate(0); }
+        }
+
+        @keyframes glitch2 {
+            0% { opacity: 0; transform: translate(0); }
+            5% { opacity: 1; transform: translate(5px, 0); }
+            10% { opacity: 0; transform: translate(-5px, 0); }
+            100% { opacity: 0; transform: translate(0); }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            animation: fadeInOut 4s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-wrapper {
+            position: relative;
+        }
+
+        .btn {
+            padding: 28px 70px;
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #ffffff;
+            background: transparent;
+            border: 4px solid #ffffff;
+            border-radius: 0;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ff0000;
+            box-shadow: 
+                0 0 30px #fff,
+                0 0 60px #fff,
+                0 0 90px #fff,
+                0 0 120px rgba(255, 0, 0, 0.8),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #ffffff, #ff0000);
+            opacity: 0;
+            filter: blur(10px);
+            transition: opacity 0.3s ease;
+            z-index: -2;
+            animation: rotateGlow 3s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            0% { filter: blur(10px) hue-rotate(0deg); }
+            100% { filter: blur(10px) hue-rotate(360deg); }
+        }
+
+        .btn-wrapper:hover .btn-glow {
+            opacity: 0.8;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        .cursor-trail {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 48px;
+                letter-spacing: 8px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 20px 40px;
+                font-size: 16px;
+            }
+        }
+
+        .static-noise {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            opacity: 0.02;
+            animation: staticMove 0.2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes staticMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-5%, -5%); }
+        }
+
+        .screen-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            animation: borderPulse 3s infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { border-color: rgba(255, 255, 255, 0.1); }
+            50% { border-color: rgba(255, 0, 0, 0.3); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+    <div class="static-noise"></div>
+    <div class="screen-border"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="title-wrapper">
+            <h1>𝙉𝙀𝙊𝙓𝙐𝙎</h1>
+            <div class="glitch">𝙉𝙀𝙊𝙓𝙐𝙎</div>
+            <div class="glitch">𝙉𝙀𝙊𝙓𝙐𝙎</div>
+        </div>
+        <div class="buttons">
+            <div class="btn-wrapper">
+                <div class="btn-glow"></div>
+                <a href="https://www.logged.tg/auth/neoxus" class="btn">Logged</a>
+            </div>
+            <div class="btn-wrapper">
+                <div class="btn-glow"></div>
+                <a href="https://immortal.rs/?code=MTk0NDA2NTEwNTQzOTMyNTIwMA==" class="btn">Immortal</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 300; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Generate particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Cursor trail effect removed
+
+        // Screen shake on button hover
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                document.body.style.animation = 'shake 0.1s';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 100);
+            });
+        });
+    </script>
+    
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+            75% { transform: translate(-2px, -2px); }
+        }
+    </style>
+</body>
+</html>
